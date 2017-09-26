@@ -30,8 +30,9 @@
     <%= form.label :released_at %>
     <%= form.date_select :released_at, id: :song_released_at, start_year: 1900 %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  
+  <div class="field button">
+    <%= form.submit 'Add song' %>
   </div>
+
 <% end %>

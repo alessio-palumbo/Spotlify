@@ -5,11 +5,25 @@ class SongsController < ApplicationController
   # GET /songs.json
   def index
     @songs = Song.all
+    
   end
 
   # GET /songs/1
   # GET /songs/1.json
   def show
+    play_count = PlayCount.find_by(song: @song)
+    # Never being played if there is not play count record yet
+    if play_count == nil
+      # Create play count n the database for this song
+      play_count = PlayCount.new(song: @song, count: 1)
+      # Save to database
+      play_count.save
+    else
+      # Increment that play_count's count value
+      play_count.count += 1
+      # Save to database
+      play_count.save
+    end
   end
 
   # GET /songs/new
@@ -69,6 +83,6 @@ class SongsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
-      params.require(:song).permit(:name, :artist_id, :duration, :released_at)
+      params.require(:song).permit(:name, :artist_id, :duration, :released_at, :play_count)
     end
 end

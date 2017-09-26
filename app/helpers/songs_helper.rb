@@ -7,4 +7,15 @@ module SongsHelper
     ss = '%02d' % (seconds % 60)
     "#{ mm }:#{ ss }"
   end
+
+  def format_colour(date)
+    if date.year > 2000
+      "mill"
+    elsif date.year > 1990
+      "nine"
+    else
+      "eight"
+    end
+  end
+
 end
